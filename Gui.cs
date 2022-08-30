@@ -126,10 +126,26 @@
             series.Genre = GetString("Genre: ");
             series.ReleaseDate = GetReleaseDate();
             series.WWW = GetString("WWW: ");
+            
 
             ShowSeries(series);
             Console.WriteLine("Confirm adding to list (Y/N)");
             if (Console.ReadKey().Key == ConsoleKey.Y) data.SeriesList.Add(series);
+        }
+
+        private void AddEpisodes()
+        {
+            Episode episode = new Episode();
+            episode.Title = GetString("Title: ");
+            episode.ReleaseDate = GetReleaseDate();
+            episode.Season = GetInt(GetInt.numb);
+            episode.EpisodeNum
+            episode.Length = GetLength();
+
+
+            ShowEpisode(episode);
+            Console.WriteLine("Confirm adding to list (Y/N)");
+            if (Console.ReadKey().Key == ConsoleKey.Y) data.EpisodeList.Add(episode);
         }
 
         private void SearchMovie()
@@ -148,12 +164,12 @@
         private void SearchSeries()
         {
             Console.Write("Search: ");
-            string? search = Console.ReadLine();
+            string? search = Console.ReadLine().ToLower();
             foreach (Series series in data.SeriesList)
             {
                 if (search != null)
                 {
-                    if (series.Title.Contains(search) || series.Genre.Contains(search))
+                    if (series.Title.ToLower().Contains(search) || series.Genre.ToLower().Contains(search))
                         ShowSeries(series);
                 }
             }
@@ -190,6 +206,18 @@
                 input = Console.ReadLine();
             }
             while (input == null || input == "");
+            return input;
+        }
+
+        private int? GetInt(int number)
+        {
+            int? input;
+            do
+            {
+                Console.Write(number);
+                input = Convert.ToInt16((Console.ReadLine()));
+            }
+            while (input == null || input == 0);
             return input;
         }
 
